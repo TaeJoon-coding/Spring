@@ -1,0 +1,15 @@
+TEST : SWAGGERがかなり良い。
+最近はspringdoc-openapiを使う。
+IOCが重要！
+
+
+Dynamic Web Project
+コピペすると、「Context-path」が同じくなるので、（metaデータ）も同じものになり、昨日に問題が生じる。
+前提：close unrelated Project
+Search->Fileでいちいち変換、
+プロジェクト名 => context path
+フォルダ（パッケージ） => refactoring
+
+セルフフィードバック：Windows11の録画機能を活用。
+
+log、issue記録は財産！
