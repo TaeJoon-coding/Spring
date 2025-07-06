@@ -1,0 +1,75 @@
+plugins {
+	id 'java'
+	id 'war'
+	id 'org.springframework.boot' version '3.3.13'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.javateam'
+version = '1.0'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+configurations {
+	// 自動的に生成されるが、生成されないときもある。
+	// その時は
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+	// spring boot 基本 logging(logback) 排除 -> Log4j2
+	all {
+		exclude module : 'spring-boot-starter-logging'
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa
+	// implementation 'org.springframework.boot:spring-boot-starter-data-jpa:3.5.3'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	
+	compileOnly 'org.projectlombok:lombok'		// lombok
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	annotationProcessor 'org.projectlombok:lombok'		// lombok
+	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	
+	// log4jdbc
+    implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
+	
+
+	// https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client
+	// runtimeOnly 'org.mariadb.jdbc:mariadb-java-client:3.5.3'
+	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+	
+	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-log4j2
+	implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+	
+	
+	// https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui
+	
+	// https://springdoc.org/#what-is-the-compatibility-matrix-of-springdoc-openapi-with-spring-boot
+	// spring boot 3.3.x -> spring doc(swagger) 2.6.x
+	// spring boot 3.4.x -> spring doc(swagger) 2.7.x / 2.8.x
+	// https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0'
+
+	// HikariCP : Java 11 over
+	// https://mvnrepository.com/artifact/com.zaxxer/HikariCP
+	// implementation 'com.zaxxer:HikariCP:6.3.0'
+
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
