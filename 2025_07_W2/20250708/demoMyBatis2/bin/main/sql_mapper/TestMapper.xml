@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- New > Other > MyBatisで生成。 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!--  -->
+<mapper namespace="sql_mapper.TestMapper">
+  <!-- <cache-ref namespace=""/> 今はいらない。 -->
+  <!-- 
+  個別会員情報を照会
+  ここではセレクトではあるが、getterでも良い。
+  getterの場合、列returnも必要になるが、汎用性が高まる。
+  
+  getter/setterを使う理由？
+   -->
+	  <select 
+	  		  id="selectTestById" 
+	  		  parameterType="String" 
+	  		  resultType="com.javateam.demoMyBatis2.domain.TestVO">
+	  <!-- mapで読み込んでmapで出す。 -->
+	  <!-- いやとしたら、現場によってはDTO -->
+	  
+	  		SELECT * FROM test_tbl WHERE id = #{id}
+	  </select>
+	  
+	  <!-- 個別会員情報挿入 -->
+	  <insert id="insertTest"
+	  			parameterType="com.javateam.demoMyBatis2.domain.TestVO">
+	  
+	  			INSERT INTO test_tbl (id, name, address)
+				VALUES (#{id}, #{name}, #{address});
+	  </insert>
+  
+</mapper>
