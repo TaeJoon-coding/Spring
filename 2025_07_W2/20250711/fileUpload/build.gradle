@@ -1,0 +1,57 @@
+plugins {
+	id 'java'
+	id 'war'
+	// GMT+9:00-20250710-午前基準最旧バージョン更新履歴は以下のURLなどを参照
+	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter
+	id 'org.springframework.boot' version '3.4.7'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+// Package名は基本自由だが、企業・団体ごと独自のルールがあり、それに従って作成する。
+group = 'com.javateam'
+version = '1.0'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+	all { // 기본 로깅(logback) 배제 -> log4j2 기본 로깅
+		exclude module : 'spring-boot-starter-logging'
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+// このブロックでプロジェクトの依存関係（dependencies）を追加・削除し、
+// ビルドや実行時の機能を制御する。
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	annotationProcessor 'org.projectlombok:lombok'
+	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+	
+	// テスト時に使用する依存関係
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	
+	// log4j2
+	implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+	// fileupload
+	implementation 'commons-fileupload:commons-fileupload:1.6.0'
+	// thumbnailator 
+	implementation 'net.coobird:thumbnailator:0.4.20'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
